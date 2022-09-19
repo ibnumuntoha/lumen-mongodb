@@ -1,0 +1,811 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sera Test API",
+        "contact": {
+            "name": "Ibnu Muntoha",
+            "email": "ibnu.muntoha@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "JWT Test"
+                ],
+                "summary": "Login",
+                "description": "Login anf get jwt token",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "to login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "ibnu.muntoha@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "test123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "token_id"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "string",
+                                            "example": "3600"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "JWT Test"
+                ],
+                "summary": "User Logout",
+                "description": "Using token to logout",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully logged out"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/auth/user-check": {
+            "post": {
+                "tags": [
+                    "JWT Test"
+                ],
+                "summary": "User Check",
+                "description": "Using token to get User data",
+                "operationId": "login",
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "check succeded"
+                                        },
+                                        "user": {
+                                            "type": "string",
+                                            "example": "data user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/company/": {
+            "post": {
+                "tags": [
+                    "Company Using Firestore"
+                ],
+                "summary": "Create company By Id",
+                "description": "Creates a new company data",
+                "operationId": "Add company",
+                "requestBody": {
+                    "description": "to add company data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "city": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Jaya Abadi"
+                                    },
+                                    "address": {
+                                        "properties": {
+                                            "building": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "230"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "Jl.Kemerdekaan"
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "14502"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Created"
+                                        },
+                                        "collection_id": {
+                                            "type": "string",
+                                            "example": "azgZaZT7bCdInSAymsHgyVy0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/company/{id}": {
+            "get": {
+                "tags": [
+                    "Company Using Firestore"
+                ],
+                "summary": "Get Company By Id",
+                "description": "Get Data company By spesicif document id",
+                "operationId": "/retaurant/id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id parameter in path is document id in Firestore ex: SURvO6l5ILojZ9i3QeYfn8k0",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns Company data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Get Data"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": "some company  data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Company Using Firestore"
+                ],
+                "summary": "Update company By Id",
+                "description": "Update company data",
+                "operationId": "Update company",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "to update company data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "city": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Jaya Abadi"
+                                    },
+                                    "address": {
+                                        "properties": {
+                                            "building": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "230"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "Jl.Kemerdekaan"
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "14502"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "pet response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Company Using Firestore"
+                ],
+                "summary": "Delete company By Id",
+                "description": "Delete Data company By spesicif document id",
+                "operationId": "/retaurant/id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id parameter in path is document id ex: SURvO6l5ILojZ9i3QeYfn8k0",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns company data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/external/register": {
+            "post": {
+                "tags": [
+                    "Handle External API"
+                ],
+                "summary": "Handle register",
+                "description": "Handle register",
+                "operationId": "Handle register",
+                "requestBody": {
+                    "description": "Handle register",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "eve.holt@reqres.in"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "cityslicka"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "azgZaZT7bCdInSAymsHgyVy0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/external/login": {
+            "post": {
+                "tags": [
+                    "Handle External API"
+                ],
+                "summary": "Handle Login",
+                "description": "Handle Login",
+                "operationId": "Handle Login",
+                "requestBody": {
+                    "description": "Handle Login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "eve.holt@reqres.in"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "cityslicka"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "azgZaZT7bCdInSAymsHgyVy0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/filter": {
+            "get": {
+                "tags": [
+                    "Filtering Denom"
+                ],
+                "summary": "Filtering Denom",
+                "description": "Filtering Denom",
+                "operationId": "filter",
+                "responses": {
+                    "200": {
+                        "description": "Returns filtered data"
+                    }
+                }
+            }
+        },
+        "/restaurant/{id}": {
+            "get": {
+                "tags": [
+                    "Restaurant Using MongoDB"
+                ],
+                "summary": "Get Restaurant By Id",
+                "description": "Get Data Restaurant By spesicif document id",
+                "operationId": "/retaurant/id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id parameter in path is document id in mongodb ex: SURvO6l5ILojZ9i3QeYfn8k0",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns restaurant data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Get Data"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "example": "some restaurant  data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Restaurant Using MongoDB"
+                ],
+                "summary": "Update Restaurant By Id",
+                "description": "Update Restaurant data",
+                "operationId": "Update Restaurant",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Document id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "to update restaurant data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "borough": {
+                                        "type": "email",
+                                        "format": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "cuisine": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Betawi"
+                                    },
+                                    "restaurant_id": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "14025"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Solaria"
+                                    },
+                                    "address": {
+                                        "properties": {
+                                            "building": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "230"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "Jl.Kemerdekaan"
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "14502"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "pet response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Updated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Restaurant Using MongoDB"
+                ],
+                "summary": "Delete Restaurant By Id",
+                "description": "Delete Data Restaurant By spesicif document id",
+                "operationId": "/retaurant/id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The id parameter in path is document id in mongodb ex: SURvO6l5ILojZ9i3QeYfn8k0",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns restaurant data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/restaurant/": {
+            "post": {
+                "tags": [
+                    "Restaurant Using MongoDB"
+                ],
+                "summary": "Create Restaurant By Id",
+                "description": "Creates a new Restaurant data",
+                "operationId": "Add Restaurant",
+                "requestBody": {
+                    "description": "to add restaurant data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "borough": {
+                                        "type": "email",
+                                        "format": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "cuisine": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Betawi"
+                                    },
+                                    "restaurant_id": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "14025"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Solaria"
+                                    },
+                                    "address": {
+                                        "properties": {
+                                            "building": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "230"
+                                            },
+                                            "street": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "Jl.Kemerdekaan"
+                                            },
+                                            "zipcode": {
+                                                "type": "string",
+                                                "format": "text",
+                                                "example": "14502"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "pet response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success Created"
+                                        },
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "azgZaZT7bCdInSAymsHgyVy0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
